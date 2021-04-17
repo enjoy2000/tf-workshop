@@ -9,14 +9,7 @@ module "vpc" {
 
   cidr = "10.0.0.0/16"
   private_subnets = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24"]
-}
-
-data "aws_eks_cluster" "cluster" {
-  name = module.my-cluster.cluster_id
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.my-cluster.cluster_id
+  public_subnets = ["10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24"]
 }
 
 data "aws_subnet_ids" "example" {
@@ -36,7 +29,7 @@ module "my-cluster" {
 
   worker_groups = [
     {
-      instance_type = "t3.micro"
+      instance_type = "t2.small"
       asg_max_size  = 2
       root_volume_type = "gp2"
     }
