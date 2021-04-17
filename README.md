@@ -7,18 +7,31 @@
 - Get AWS access keys
 ![AWS keys](docs/aws_keys.png)
 - Install terraform https://www.terraform.io/downloads.html
-- Install kubectl
+- Install AWS CLI `pip install awscli`
+- Install Kubectl https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+- Install helm
+```
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
 
 ### Steps
 
 ##### Step 1 - Setup EKS cluster
 
 - Checkout step-1 if you couldn't follow
+- 
+```
+export AWS_PROFILE=tf-workshop
+aws configure
+```
+Copy your credentials, then enter > enter
 - Create providers.tf
 - Create variables.tf
 - Create main.tf
 - `terraform apply`
-- Run update-kubeconfig to set config for kubectl
+- Run update-kubeconfig to set the config for `kubectl`
 ```
 aws eks update-kubeconfig --name tf-workshop --region ap-southeast-1
 ```
@@ -35,4 +48,22 @@ aws eks update-kubeconfig --name tf-workshop --region ap-southeast-1
 - Autoscale `kubectl autoscale deploy/hello-world --min=2 --max=3`
 - Verify by `kubectl get pod`, you will see 2 pods are running
 
-##### Step 3 - 
+##### Step 3 - Helm with nginx-ingress
+
+- Install nginx-ingress
+- Create ingress with Netowrk Load Balancer (nlb + IP)
+- Edit /etc/hosts file with nlb IP and retry (tf-workshop.com xx.xx.xx.xx)
+- 
+
+- Destroy your resources if you don't want to burn your wallet ;)
+```
+terraform destroy
+```
+
+### What's next?
+
+- Remote backend for collaboration
+- Helm charts for deployment
+- Autoscale with external metric / Prometheous
+- Spot instances
+- Resources management and monitoring
