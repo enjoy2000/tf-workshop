@@ -21,7 +21,6 @@
 - Run update-kubeconfig to set config for kubectl
 ```
 aws eks update-kubeconfig --name tf-workshop --region ap-southeast-1
-# copy context to provider kubernetes
 ```
 
 ###### Step 2 - Create deployment with external load balancer
@@ -32,3 +31,8 @@ aws eks update-kubeconfig --name tf-workshop --region ap-southeast-1
 - Verify by `kubectl describe deploy`
 - `kubectl expose deploy/hello-world --type=LoadBalancer --name=my-service`
 - Verify by `kubectl describe svc`
+- `curl xxx-504933999.ap-southeast-1.elb.amazonaws.com:8080`
+- Autoscale `kubectl autoscale deploy/hello-world --min=2 --max=3`
+- Verify by `kubectl get pod`, you will see 2 pods are running
+
+##### Step 3 - 
