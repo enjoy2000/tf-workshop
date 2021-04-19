@@ -1,7 +1,11 @@
-# EOH workshop
+# Terraform workshop
 
+Introduce terraform and basic usages with K8s.
+- Setup EKS cluster
+- Create a deployment with autoscale
+- Create an ingress and route by host name
 
-### Requirements
+## Requirements
 
 - An AWS account
 - Get AWS access keys
@@ -16,9 +20,9 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-### Steps
+## Steps
 
-##### Step 1 - Setup EKS cluster
+### Step 1 - Setup EKS cluster
 
 - Checkout step-1 if you couldn't follow
 - 
@@ -36,7 +40,7 @@ Copy your credentials, then enter > enter
 aws eks update-kubeconfig --name tf-workshop --region ap-southeast-1
 ```
 
-###### Step 2 - Create deployment with external load balancer
+### Step 2 - Create deployment with external load balancer
 
 - Checkout step-2
 - Create deploy.yaml
@@ -48,22 +52,26 @@ aws eks update-kubeconfig --name tf-workshop --region ap-southeast-1
 - Autoscale `kubectl autoscale deploy/hello-world --min=2 --max=3`
 - Verify by `kubectl get pod`, you will see 2 pods are running
 
-##### Step 3 - Helm with nginx-ingress
+### Step 3 - Helm with nginx-ingress
 
 - Install nginx-ingress
+  - Add helm to required_providers
+  - Config provider helm, copy from `kubernetes`
+  - `terraform init`
 - Create ingress with Netowrk Load Balancer (nlb + IP)
+- Create ingress to `my-service` `8080` `kubectl apply -f ingress.yaml`
+- Get ingress nginx external dns `kubectl -n ingress-nginx get svc`
+- Get IP of ELB `nslookup {ELB domain}`
 - Edit /etc/hosts file with nlb IP and retry (tf-workshop.com xx.xx.xx.xx)
-- 
-
 - Destroy your resources if you don't want to burn your wallet ;)
 ```
 terraform destroy
 ```
+Delete the VPC from UI if needed.
 
-### What's next?
+## What's next?
 
 - Remote backend for collaboration
 - Helm charts for deployment
 - Autoscale with external metric / Prometheous
-- Spot instances
 - Resources management and monitoring
