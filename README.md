@@ -75,3 +75,10 @@ Delete the VPC from UI if needed.
 - Helm charts for deployment
 - Autoscale with external metric / Prometheous
 - Resources management and monitoring
+
+## Credit
+
+https://github.com/HowDevOps/workshop-01
+https://www.youtube.com/channel/UCQCGiKBavnhYuIADjiwFVhg
+https://github.com/artberri/101-terraform
+
